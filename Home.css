@@ -1,0 +1,144 @@
+:root{
+    --nav-height:64px;
+    --bg:#fff;
+    --accent:#111;
+    --muted:#666;
+}
+
+*{box-sizing:border-box}
+body{
+    margin:0;
+    padding-top:0; /* navbar is sticky and in normal flow, no extra top padding needed */
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--accent);
+}
+
+/* Navbar fixed to top */
+.navbar{
+    position:sticky;
+    top:0;
+    left:0;
+    right:0;
+    height:var(--nav-height);
+    display:flex;
+    align-items:center;
+    border-bottom:1px solid #e8e8e8;
+    padding:0 1rem;
+    z-index:1000;
+    background:var(--bg);
+}
+
+/* Logo pinned to the left */
+.logo{display:flex;align-items:center;text-decoration:none; z-index:1010;}
+.logo-img{height:48px;width:auto;display:block;}
+@media (max-width:600px){.logo-img{height:40px;}}
+
+/* Centered navigation links (visually centered in the navbar) */
+.nav-center{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    pointer-events:none; /* allow logo overlapping clicks if needed */
+}
+.nav-center ul{
+    pointer-events:auto;
+    margin:0;
+    padding:0;
+    list-style:none;
+    display:flex;
+    gap:28px;
+    align-items:center;
+}
+.nav-center a{
+    text-decoration:none;
+    color:var(--muted);
+    padding:8px 4px;
+    border-radius:6px;
+    transition:color .15s,background .15s;
+    font-weight:500;
+}
+.nav-center a:hover,
+.nav-center a:focus{
+    color:var(--accent);
+    background:rgba(0,0,0,0.03);
+    outline:none;
+}
+
+/* Responsive: collapse spacing on small screens */
+@media (max-width:520px){
+    .nav-center ul{gap:12px;font-size:14px}
+    .logo{left:10px;font-size:16px}
+}
+
+/*------------------------------------------------------------------ Banner ---------------------------------------------------------------------*/
+
+/* make header + banner fill viewport */
+html, body { height: 100%; }
+body { margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
+
+/* header is above video */
+header.navbar { z-index: 1000; }
+
+/* hero fills remaining space — ensure it exactly fills viewport minus header */
+.hero-banner {
+    position: relative;
+    overflow: hidden;
+    /* Banner fills the viewport area below the fixed navbar; page can scroll once content continues */
+    height: calc(100vh - var(--nav-height));
+    min-height: 60vh;
+}
+
+/* full-bleed video — match banner height so it's not clipped */
+.hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    object-position: center center;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* optional overlay content */
+.hero-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.35));
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+    padding: 0; /* removed padding as requested */
+    pointer-events: auto;
+}
+
+.hero-content h1 { margin: 0; font-size: clamp(1.6rem, 4vw, 3.2rem); }
+.hero-content p { margin-top: .5rem; font-size: clamp(.95rem, 2.2vw, 1.25rem); }
+
+/* Cards grid to center and make cards responsive */
+.cards-grid{
+    display:flex;
+    gap:1rem;
+    justify-content:center;
+    align-items:flex-start;
+    /* flex-wrap:wrap;
+    margin-top:1rem; */
+}
+.cards-grid .card{flex:0 0 400px;max-width:100%;}
