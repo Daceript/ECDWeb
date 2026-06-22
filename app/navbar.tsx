@@ -1,101 +1,111 @@
 "use client";
 
-// import AppBar from '@mui/material/AppBar';
-import { useState, type MouseEvent } from 'react';
-import { useRouter } from 'next/navigation';
-import { AppBar, Toolbar, Typography, Button, Box, Menu, MenuItem } from '@mui/material';
-import Image from 'next/image'
+import { useState, useRef, useEffect, type MouseEvent } from 'react';
+import { AppBar, Toolbar, Button, Box } from '@mui/material';
+import Image from 'next/image';
 import Link from 'next/link';
 
+const navItems = [
+    { name: 'Sobre nosotros', type: 'dropdown', items: [{ name: 'Nuestra historia', href: '/nuestra-historia' }, { name: 'Nuestro equipo', href: '/nuestro-equipo' }] },
+    { name: 'Calendario', type: 'link', href: '/calendario' },
+    { name: 'MultiMedia', type: 'link', href: '/multimedia' },
+];
 
-const navItems = [ 
-                    {name: 'Sobre nosotros', type: 'dropdown', items: [{'name': 'Nuestra historia', 'href': '/nuestra-historia'}, {'name': 'Nuestro equipo', 'href': '/nuestro-equipo'}] },
-                    {name: 'Calendario', type: 'link', href: '/calendario'},
-                    {name: 'MultiMedia', type: 'link', href: '/multimedia'} ];
+type DropdownItem = { name: string; href: string };
 
+function DropdownMenu({ label, items }: { label: string; items: DropdownItem[] }) {
+    const [open, setOpen] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
 
+    useEffect(() => {
+        const handleClickOutside = (e: globalThis.MouseEvent) => {
+            if (ref.current && !ref.current.contains(e.target as Node)) {
+                setOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
-export default function NavBar() {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [dropdownItems, setDropdownItems] = useState<{ name: string; href: string }[]>([]);
-    const open = Boolean(anchorEl);
-
-    const handleDropdownOpen = (event: MouseEvent<HTMLElement>, items: { name: string; href: string }[]) => {
-        setAnchorEl(event.currentTarget);
-        setDropdownItems(items);
-    };
-
-    const handleDropdownClose = () => {
-        setAnchorEl(null);
-        setDropdownItems([]);
-    };
-
-    const renderNavItem = (item: { name: string; type: string; href?: string; items?: { name: string; href: string }[] }) => {
-        if (item.type === 'link') {
-            return (
-                <Button key={item.name} color="inherit" href={item.href} sx={{ mx: 1 }}>
-                    {item.name}
-                </Button>
-            );
-        }
-
-        return (
+    return (
+        <div ref={ref} style={{ position: 'relative', display: 'inline-block' }}>
             <Button
-                key={item.name}
                 color="inherit"
                 sx={{ mx: 1 }}
-                onClick={(event) => handleDropdownOpen(event, item.items ?? [])}
+                onClick={() => setOpen((prev) => !prev)}
             >
-                {item.name}
+                {label}
             </Button>
-        );
-    };
 
-    const router = useRouter();
-
-    return(
-        <nav>
-            
-
-        <AppBar
-        position="static"
-        color="transparent"
-        sx={{ bgcolor: 'var(--color-gray-50)' }}
-        >
-        <Toolbar sx={{ display: 'flex', alignItems: 'center' }}>
-
-            <Box sx={{ display: 'flex', alignItems: 'center', flex: 1 }}>
-            <Link href="/" passHref>
-                <Image src="/logo.png" alt="ECD Logo" width={50} height={50} className="mr-2 cursor-pointer" />
-            </Link>
-            </Box>
-
-            <Box
-            sx={{
-                display: { xs: 'none', sm: 'flex' },
-                justifyContent: 'center',
-                flex: 2,
-            }}
+            <div
+                style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 4px)',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    minWidth: 180,
+                    background: 'white',
+                    borderRadius: 8,
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
+                    overflow: 'hidden',
+                    opacity: open ? 1 : 0,
+                    pointerEvents: open ? 'auto' : 'none',
+                    transition: 'opacity 0.2s ease, transform 0.2s ease',
+                    transformOrigin: 'top center',
+                    zIndex: 1300,
+                }}
             >
-            {navItems.map(renderNavItem)}
-            <Menu
-                id="navbar-dropdown-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleDropdownClose}
-            >
-                {dropdownItems.map((subItem) => (
-                    <MenuItem key={subItem.name} onClick={handleDropdownClose} href={subItem.href}>
-                        {subItem.name}
-                    </MenuItem>
+                {items.map((item) => (
+                    <Link
+                        key={item.name}
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        style={{
+                            display: 'block',
+                            padding: '10px 16px',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                            fontSize: 14,
+                            transition: 'background 0.15s ease',
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = '#f5f5f5')}
+                        onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                    >
+                        {item.name}
+                    </Link>
                 ))}
-            </Menu>
-            </Box>
+            </div>
+        </div>
+    );
+}
 
-            <Box sx={{ flex: 1 }} />
-        </Toolbar>
-        </AppBar>
+export default function NavBar() {
+    return (
+        <nav>
+            <AppBar position="static" color="transparent" sx={{ bgcolor: 'var(--color-gray-50)' }}>
+                <Toolbar sx={{ display: 'flex', alignItems: 'center' }}>
 
+                    <Box sx={{ display: 'flex', alignItems: 'center', flex: 1 }}>
+                        <Link href="/" passHref>
+                            <Image src="/logo.png" alt="ECD Logo" width={50} height={50} className="mr-2 cursor-pointer" />
+                        </Link>
+                    </Box>
+
+                    <Box sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: 'center', flex: 2 }}>
+                        {navItems.map((item) =>
+                            item.type === 'link' ? (
+                                <Button key={item.name} color="inherit" href={item.href} sx={{ mx: 1 }}>
+                                    {item.name}
+                                </Button>
+                            ) : (
+                                <DropdownMenu key={item.name} label={item.name} items={item.items ?? []} />
+                            )
+                        )}
+                    </Box>
+
+                    <Box sx={{ flex: 1 }} />
+                </Toolbar>
+            </AppBar>
         </nav>
-    )
+    );
 }
