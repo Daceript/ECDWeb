@@ -35,11 +35,11 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
     
     return(
-        <footer className="bg-gray-800 text-white p-4 mt-auto flex flex-col items-center justify-center">
+        <footer className="bg-[#1A1A1A] text-white p-4 mt-auto flex flex-col items-center justify-center">
             <Divider className="w-full mb-4">
                 <SocialButtons />
             </Divider>
-            <p className="text-center">&copy; {currentYear} ECD Web. All rights reserved.</p>
+            <p className="text-center">&copy; {currentYear} Iglesia un Encuentro con Dios. All rights reserved.</p>
         </footer>
     )
 }
