@@ -1,4 +1,4 @@
-import HeroBanner from "../../components/herobanner";
+import HeroBanner from "../../../components/herobanner";
 
 export default function Page() {
     return (
