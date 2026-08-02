@@ -1,6 +1,9 @@
 "use client";
 
+import { useState } from "react";
+
 import HeroBanner from "../../../components/herobanner";
+import DayCard from "../../../components/DayCard";
 
 import {
   Calendar,
@@ -16,6 +19,27 @@ import { CalendarEvent } from "../../../models/Calendar/Events";
 import { getEventColor } from "../../../models/Calendar/eventCategoryColors";
 
 import Section from "../../../components/section";
+
+const DAY_CARDS_PER_PAGE = 3;
+
+function groupEventsByDay(events: CalendarEvent[]) {
+  const groups = new Map<string, { date: Date; events: CalendarEvent[] }>();
+
+  for (const event of events) {
+    const key = dayjs(event.start).format("YYYY-MM-DD");
+    if (!groups.has(key)) {
+      groups.set(key, { date: event.start, events: [] });
+    }
+    groups.get(key)!.events.push(event);
+  }
+
+  return Array.from(groups.values())
+    .sort((a, b) => a.date.getTime() - b.date.getTime())
+    .map((group) => ({
+      ...group,
+      events: group.events.sort((a, b) => a.start.getTime() - b.start.getTime()),
+    }));
+}
 
 dayjs.locale("es");
 
@@ -126,6 +150,11 @@ export default function EventsCalendar({
     end: event.end instanceof Date ? event.end : new Date(event.end),
   }));
 
+  const dayGroups = groupEventsByDay(calendarEvents);
+  const [visibleDayCount, setVisibleDayCount] = useState(DAY_CARDS_PER_PAGE);
+  const visibleDayGroups = dayGroups.slice(0, visibleDayCount);
+  const hasMoreDays = visibleDayCount < dayGroups.length;
+
   return (
     <>
       <HeroBanner
@@ -232,9 +261,27 @@ export default function EventsCalendar({
         }
       `}</style>
 
-        <Section variant="gray"> 
-          
-        </Section>
+      <Section variant="white">
+        <div className="flex flex-col divide-y divide-black/10">
+          {visibleDayGroups.map((group) => (
+            <div key={group.date.toISOString()} className="py-8 first:pt-0 last:pb-0">
+              <DayCard date={group.date} events={group.events} />
+            </div>
+          ))}
+        </div>
+
+        {hasMoreDays ? (
+          <div className="mt-8 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setVisibleDayCount((count) => count + DAY_CARDS_PER_PAGE)}
+              className="rounded-full border border-gray-300 px-6 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-100"
+            >
+              Cargar más
+            </button>
+          </div>
+        ) : null}
+      </Section>
     </>
   );
 }
