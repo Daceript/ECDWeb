@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conozca a nuestro liderazgo | Iglesia un Encuentro con Dios</title>
+  <style>
+    :root {
+      --gray: #ecd491;
+      --dark: #242424;
+      --blue: #168cff;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--dark);
+      background: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+    }
+    a { color: inherit; text-decoration: none; }
+    .site-header {
+      min-height: 70px;
+      padding: 12px 3.5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      background: var(--gray);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 220px;
+      font-size: 12px;
+    }
+    .logo {
+      width: 48px;
+      height: 42px;
+      border: 1px solid #777;
+      display: grid;
+      place-items: center;
+      color: #555;
+      font-size: 10px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .nav { display: flex; align-items: center; gap: 10px; flex-wrap:wrap; }
+    .nav a, .nav button {
+      border: 1px solid #aaa;
+      background: transparent;
+      padding: 9px 12px;
+      font: inherit;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .nav a:hover, .nav button:hover { background: #c9c9c9; }
+    .dropdown { position: relative; }
+    .dropdown-menu {
+     display: none;
+     position:absolute;
+     z-index:5;
+     top: calc(100% + 2px);
+     left:0;
+     min-width: 170px;
+     background:white;
+     border: 1px solid #bbb;
+     box-shadow: 0 5px 14px #0001;
+    }
+    .dropdown-menu a { display: block; border: 0; padding: 12px; }
+    .dropdown.open .dropdown-menu { display: block; }
+    .hero {
+      background: var(--gray);
+      text-align: center;
+      padding: 38px 18px 48px;
+    }
+    .hero h1 { margin: 0 0 10px; font-size: clamp(24px, 3vw, 34px); }
+    .hero p { margin: 0 auto; max-width: 650px; font-size: 12px; line-height: 1.6; }
+    main { max-width: 1180px; margin: 0 auto; padding: 24px 28px 76px; }
+    .featured {
+      width: min(270px, 100%);
+      margin: 0 auto 24px;
+    }
+    .leader-card {
+      min-width: 0;
+      background: var(--gray);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .featured .leader-card { min-height: 300px; }
+    .portrait {
+      width: 100%;
+      height: 175px;
+      background: #c8c8c8;
+      display: grid;
+      place-items: center;
+      color: #686868;
+      font-size: 11px;
+      overflow: hidden;
+    }
+    .featured .portrait { height: 220px; }
+    .portrait img { width: 100%; height: 100%; object-fit: cover; }
+    .leader-info { padding: 13px 10px 15px; }
+    .leader-info h2 { font-size: 13px; margin: 0 0 5px; }
+    .leader-info p { font-size: 11px; line-height: 1.45; margin: 0; }
+    .leader-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+    .leader-grid .leader-card { min-height: 205px; }
+    .leader-grid .portrait { height: 130px; }
+    .leader-card:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+    .leader-card:hover { box-shadow: 0 4px 12px #0001; }
+    .site-footer {
+      background: var(--gray);
+      padding: 20px 3.5% 14px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end;
+      gap: 18px;
+      font-size: 10px;
+    }
+    .footer-address:last-child { text-align: right; }
+    .socials { display: flex; justify-content: center; gap: 14px; margin-bottom: 12px; }
+    .socials a {
+      border: 1px solid #555;
+      width: 27px; height: 27px;
+      display: grid; place-items: center;
+      font-weight: bold; font-size: 12px;
+    }
+    .copyright { text-align: center; white-space: nowrap; }
+    @media (max-width: 900px) {
+      .site-header { align-items: flex-start; flex-direction: column; }
+      .nav { width: 100%; }
+      .leader-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .site-header { padding: 14px 5%; }
+      .nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .nav > a, .nav .dropdown > button { width: 100%; text-align: center; }
+      .dropdown-menu { min-width: 100%; }
+      .hero { padding: 34px 20px; }
+      main { padding: 24px 16px 42px; }
+      .leader-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .leader-grid .leader-card { min-height: 190px; }
+      .leader-grid .portrait { height: 115px; }
+      .featured .portrait { height: 190px; }
+      .site-footer { grid-template-columns: 1fr 1fr; align-items: center; }
+      .social-area { grid-column: 1 / -1; grid-row: 1; }
+      .copyright { grid-column: 1 / -1; grid-row: 3; white-space: normal; }
+      .footer-address:last-child { text-align: right; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#inicio" aria-label="Inicio">
+      <span class="logo">LOGO</span>
+      <span>Iglesia un Encuentro con Dios</span>
+    </a>
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="dropdown">
+        <button type="button" aria-expanded="false">Sobre nosotros ▾</button>
+        <div class="dropdown-menu">
+          <a href="#liderazgo">Nuestro liderazgo</a>
+          <a href="#mision">Nuestra misión</a>
+          <a href="#contacto">Visítanos</a>
+        </div>
+      </div>
+      <a href="#educacion">Educación</a>
+      <a href="#oracion">Razón de Oración</a>
+      <a href="#calendario">Calendario</a>
+      <a href="#multimedia">Multimedia</a>
+      <a href="#donar">Donate</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="inicio">
+    <h1>Conozca a nuestro liderazgo</h1>
+    <p>Nuestro dedicado equipo de pastores y personal está aquí para servir y apoyar a nuestra familia de la iglesia.</p>
+  </section>
+
+  <main id="liderazgo">
+    <section class="featured" aria-label="Pastores principales">
+      <article class="leader-card" tabindex="0">
+        <div class="portrait">Foto de los pastores</div>
+        <div class="leader-info">
+          <h2>Pastores Henry &amp; Milagros Mercado</h2>
+          <p>Con amor y fe, guiamos a nuestra comunidad para crecer juntos en Dios.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="leader-grid" aria-label="Equipo de liderazgo">
+      <article class="leader-card" tabindex="0"><div class="portrait">Foto</div><div class="leader-info"><h2>Líder #1</h2><p>Sirviendo a nuestra comunidad con fe y dedicación.</p></div></article>
+      <article class="leader-card" tabindex="0"><div class="portrait">Foto</div><div class="leader-info"><h2>Some Person</h2><p>Apoyando a la iglesia y a cada miembro de nuestra familia.</p></div></article>
+      <article class="leader-card" tabindex="0"><div class="portrait">Foto</div><div class="leader-info"><h2>Mike</h2><p>Comprometido con el servicio y el crecimiento espiritual.</p></div></article>
+      <article class="leader-card" tabindex="0"><div class="portrait">Foto</div><div class="leader-info"><h2>Mi</h2><p>Trabajando para fortalecer nuestra comunidad.</p></div></article>
+      <article class="leader-card" tabindex="0"><div class="portrait">Foto</div><div class="leader-info"><h2>Your Name</h2><p>Contribuyendo con alegría y dedicación.</p></div></article>
+      <article class="leader-card" tabindex="0"><div class="portrait">Foto</div><div class="leader-info"><h2>Líder 7</h2><p>Guiando con humildad, esperanza y amor.</p></div></article>
+      <article class="leader-card" tabindex="0"><div class="portrait">Foto</div><div class="leader-info"><h2>Juanito</h2><p>Ayudando a crear un espacio acogedor para todos.</p></div></article>
+      <article class="leader-card" tabindex="0"><div class="portrait">Foto</div><div class="leader-info"><h2>Jane Doe</h2><p>Apoyando los ministerios y actividades de la iglesia.</p></div></article>
+      <article class="leader-card" tabindex="0"><div class="portrait">Foto</div><div class="leader-info"><h2>John Doe</h2><p>Sirviendo con un corazón dispuesto y generoso.</p></div></article>
+      <article class="leader-card" tabindex="0"><div class="portrait">Foto</div><div class="leader-info"><h2>Líder 8</h2><p>Compartiendo fe y ánimo con nuestra congregación.</p></div></article>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contacto">
+    <div class="footer-address">3595 Broadway,<br>New York, NY 10031</div>
+    <div class="social-area">
+      <div class="socials" aria-label="Redes sociales">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">◎</a>
+        <a href="#" aria-label="YouTube">▶</a>
+      </div>
+      <div class="copyright">© 2026 Iglesia un Encuentro con Dios. All rights reserved.</div>
+    </div>
+    <div class="footer-address">3595 Broadway<br>New York, NY 10031<br><br>info@ecd.org</div>
+  </footer>
+
+  <script>
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownButton = dropdown.querySelector('button');
+    dropdownButton.addEventListener('click', () => {
+      const isOpen = dropdown.classList.toggle('open');
+      dropdownButton.setAttribute('aria-expanded', String(isOpen));
+    });
+    document.addEventListener('click', (event) => {
+      if (!dropdown.contains(event.target)) {
+        dropdown.classList.remove('open');
+        dropdownButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+  </script>
+</body>
+</html>
