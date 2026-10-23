@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+
+  <head>
+
+    <link rel="icon" href="logo.png">
+    <title>Iglesia Un Encuentro Con Dios</title>
+
+    <meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+    <style>
+          :root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);
+          padding-bottom:env(safe-area-inset-bottom,0px)}
+          html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}
+          img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+    </style>
+
+  </head>
+
+  <body>
+
+<link rel="stylesheet" href="Home.css">
+<script src="eventos-lib.js" defer></script>
+<script src="eventos.js" defer></script>
+<script src="Home.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&display=swap">
+
+
+<div class="splash" id="splash" role="presentation">
+  <div class="splash-inner">
+    <div class="splash-mark"><img class="splash-logo" src="logo.png" alt="Logo de Iglesia Un Encuentro Con Dios" data-i18n-alt="logo_alt" width="220" height="220"></div>
+    <p class="splash-text" data-i18n="splash">Bienvenidos</p>
+  </div>
+</div>
+<script>
+  (function () {
+    var s = document.getElementById('splash');
+    try { if (sessionStorage.getItem('ecd-splash')) { s.classList.add('done'); return; } sessionStorage.setItem('ecd-splash', '1'); } catch (e) {}
+    s.addEventListener('click', function () { s.classList.add('done'); });
+    setTimeout(function () { s.classList.add('done'); }, 3500);
+  })();
+</script>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="#inicio" aria-label="Iglesia Un Encuentro Con Dios, inicio" data-i18n-aria="brand_aria">
+      <img class="logo-img" src="logo.png" alt="" width="56" height="56">
+      <span class="brand-name">Iglesia Un Encuentro<br>Con Dios</span>
+    </a>
+
+    <button class="btn menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-i18n="menu">Menú</button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Principal">
+      <ul class="nav-list">
+        <li>
+          <button class="nav-link" type="button" aria-expanded="false" aria-controls="sub-about" id="about-btn">
+            <span data-i18n="about">Sobre nosotros</span>
+            <svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+          </button>
+          <ul class="submenu" id="sub-about" hidden>
+            <li><a href="#" data-i18n="about1">Nuestra historia</a></li>
+            <li><a href="#" data-i18n="about2">Liderazgo</a></li>
+            <li><a href="#" data-i18n="about3">Lo que creemos</a></li>
+          </ul>
+        </li>
+        <li><a class="nav-link" href="#" data-i18n="education">Educación</a></li>
+        <li><a class="nav-link" href="#" data-i18n="prayer">Buzón de Oración</a></li>
+        <li><a class="nav-link" href="#calendario" data-i18n="calendar">Calendario</a></li>
+        <li><a class="nav-link" href="#">MultiMedia</a></li>
+        <!-- <li><a class="nav-link donate" href="#">Donate</a></li> -->
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <!-- HERO: set --hero-image in the style block to add a photo -->
+  <section class="hero">
+    <div class="wrap">
+      <h1><span data-i18n="hero_kicker">Bienvenidos a la</span>Iglesia Un Encuentro Con Dios</h1>
+      <p data-i18n="hero_tag">Donde todos somos una sola familia en Cristo Jesús</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#" data-i18n="visit">Visítanos</a>
+        <a class="btn" href="#" data-i18n="join">Únete virtual</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUESTRA ESENCIA -->
+  <section class="essence">
+    <div class="wrap">
+      <h2 data-i18n="essence_title">Nuestra esencia</h2>
+      <p data-i18n="essence_text">Aquí va una descripción breve de quiénes son como iglesia: su misión, lo que los une y lo que pueden esperar quienes los visitan por primera vez.</p>
+    </div>
+  </section>
+
+  <!-- CALENDARIO -->
+  <section class="calendar" id="calendario">
+    <div class="wrap">
+      <div class="calendar-head">
+        <div>
+          <p class="eyebrow" data-i18n="calendar">Calendario</p>
+          <h2 data-i18n="cal_title">Nuestros próximos encuentros</h2>
+        </div>
+        <a class="btn" href="calendario.html" data-i18n="cal_full">Ver calendario completo</a>
+      </div>
+
+      <div class="calendar-grid">
+        <!-- The upcoming events are filled in by Home.js, from the list in eventos.js -->
+        <ul class="events" id="home-events"></ul>
+        <div class="mini-cal calendar-visual" role="group" aria-label="Calendario" data-i18n-aria="cal_aria">
+          <div class="mini-cal-head">
+            <button class="mini-cal-nav" id="cal-prev" type="button" aria-label="Mes anterior" data-i18n-aria="cal_prev">&#8249;</button>
+            <h3 class="mini-cal-title" id="cal-title" aria-live="polite"></h3>
+            <button class="mini-cal-nav" id="cal-next" type="button" aria-label="Mes siguiente" data-i18n-aria="cal_next">&#8250;</button>
+          </div>
+          <div class="mini-cal-grid" id="cal-grid"></div>
+          <p class="mini-cal-legend">
+            <span><i class="key key-today" aria-hidden="true"></i><span data-i18n="legend_today">Hoy</span></span>
+            <span><i class="key key-event" aria-hidden="true"></i><span data-i18n="legend_event">Evento</span></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open space from the wireframe, for whatever section comes next -->
+  <section class="more-slot">
+    <div class="wrap"><div class="slot" data-i18n="newsec">Espacio para una nueva sección</div></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-left">
+      <img class="logo-img" src="logo.png" alt="" width="72" height="72">
+      <address>3595 Broadway,<br>New York, NY 10031</address>
+    </div>
+
+    <div class="footer-center">
+      <div class="social">
+        <a href="https://www.facebook.com/iglesiaunencuentrocondios147" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.8c0-.9.3-1.5 1.6-1.5h1.7V3.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.4H7.7V13h2.7v8h3.1z"/></svg>
+        </a>
+        <!-- <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"/></svg>
+        </a> -->
+        <a href="https://www.youtube.com/@iglesiaunencuentrocondios/streams" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor"/></svg>
+        </a>
+      </div>
+
+      <p class="copy" data-i18n="copy">© 2026 Iglesia Un Encuentro Con Dios. Todos los derechos reservados.</p>
+
+      <div class="lang-switch" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="es" lang="es" aria-pressed="true" aria-label="Español">ES</button>
+      <button type="button" data-lang="en" lang="en" aria-pressed="false" aria-label="English">EN</button>
+      </div>
+
+    </div>
+
+    <div class="footer-right">
+      <a href="mailto:iglesiaunencuentrocondios147@gmail.com" data-i18n="email" target="_blank" rel="noopener noreferrer">¡Escríbenos!</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var toggle = document.getElementById('menu-toggle');
+    var nav = document.getElementById('site-nav');
+    var aboutBtn = document.getElementById('about-btn');
+    var sub = document.getElementById('sub-about');
+
+    function setSub(open) {
+      aboutBtn.setAttribute('aria-expanded', String(open));
+      sub.hidden = !open;
+    }
+
+    toggle.addEventListener('click', function () {
+      var open = !nav.classList.contains('open');
+      nav.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+
+    aboutBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setSub(sub.hidden);
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!sub.hidden && !sub.contains(e.target)) setSub(false);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setSub(false);
+    });
+  })();
+</script>
+
+</body>
+
+</html>
