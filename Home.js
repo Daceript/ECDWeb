@@ -7,6 +7,7 @@
       about1: 'Our story',
       about2: 'Leadership',
       about3: 'What we believe',
+      about4: 'Ministries',
       education: 'Education',
       prayer: 'Prayer Requests',
       calendar: 'Calendar',
